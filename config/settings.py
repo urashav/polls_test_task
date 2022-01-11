@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     # Project Applications
-    ###
+    'surveys',
 ]
 
 MIDDLEWARE = [
