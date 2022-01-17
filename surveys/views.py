@@ -1,5 +1,10 @@
 from django.db.models import Prefetch
+
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
+
 from rest_framework import viewsets, exceptions
+from rest_framework.mixins import CreateModelMixin, ListModelMixin
 
 from surveys.models import Survey, Answer
 from surveys.serializers import (
@@ -28,10 +33,23 @@ class ActiveSurveysViewSet(viewsets.ReadOnlyModelViewSet):
             return Survey.now_active().prefetch_related('questions__choices')
 
 
-class ResultViewSet(viewsets.ModelViewSet):
+class ResultViewSet(
+    CreateModelMixin,
+    ListModelMixin,
+    viewsets.GenericViewSet
+):
     """
         Результаты опросов пользователя
     """
+    user_id_param = openapi.Parameter(
+        'user_id',
+        openapi.IN_QUERY,
+        description="Обязательный параметр user_id",
+        type=openapi.TYPE_INTEGER)
+
+    @swagger_auto_schema(manual_parameters=[user_id_param])
+    def list(self, request, *args, **kwargs):
+        return super().list(self, request, *args, **kwargs)
 
     def get_serializer_class(self):
         if 'create' in self.action:

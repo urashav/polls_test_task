@@ -21,6 +21,7 @@ INSTALLED_APPS = [
 
     # 3'rd Party Applications
     'rest_framework',
+    'drf_yasg',
 
     # Project Applications
     'surveys.apps.SurveysConfig',

@@ -129,3 +129,16 @@ python manage.py createsuperuser
 ```shell
 python manage.py runserver
 ```
+
+### Панель администратора:
+```djangourlpath
+/admin/
+```
+
+
+### Документация API SWAGGER
+```djangourlpath
+JSON  /swagger.json
+YAML  /swagger.yaml
+A swagger-ui  /swagger/
+```
