@@ -33,3 +33,99 @@
 - django-debug-toolbar==3.2.4
 - django-debug-toolbar-force==0.1.8
 - coverage==6.2
+
+
+Склонируйте git репозиторий:
+```shell
+mkdir project_name && cd project_name
+git clone https://github.com/urashav/polls_test_task.git
+cd polls_test_task
+```
+Создайте виртуальное окружение:
+
+```shell
+python3 -m venv venv
+```
+
+Активируйте виртульное окружение:
+```shell
+source venv/bin/activate
+```
+
+Установите зависимости:
+```shell
+pip install -r requirements.txt
+```
+
+### Запуск приложения локально.
+
+Внимание! Для локального запуска требутся PostgreSQL
+
+####Создайте пользователя без пароля:
+```shell
+createuser db_username
+```
+
+#### Или создайте пользователя с паролем:
+```shell
+createuser db_username -P
+```
+
+#### Создайте базу данных:
+```shell
+createdb db_name -Odb_username
+```
+
+Для запуска тестов пользователь должен обладать правами на создание БД
+
+####Переопределите права пользователя:
+
+Войдите в базу данных:
+```shell
+psql db_name
+```
+
+Введите команду:
+```
+ALTER USER username CREATEDB;
+```
+
+### Файл env_example.sh
+
+Определит переменные окружения для приложения.
+- Отредактируйте файл и введите актуальные настройки базы данных.
+- Укажите любой SECRET_KEY.
+- Переименуйте файл для удобства.
+
+SECRET_KEY Можно сгенерировать в терминале:
+
+```shell
+python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+```
+
+#### Импортируйте переменные окружения из файла в терминале:
+
+```shell
+source env.sh
+```
+
+### Выполните команду миграций
+```shell
+python manage.py migrate
+```
+Если миграции прошли успешно, все настроено правильно
+
+### Запустите тесты:
+```shell
+python manage.py test
+```
+
+### Создайте супер пользователя
+```shell
+python manage.py createsuperuser
+```
+
+### Запустите сервер Django
+```shell
+python manage.py runserver
+```
