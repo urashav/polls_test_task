@@ -3,13 +3,11 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 DEBUG = os.getenv('DJANGO_DEBUG', False)
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -25,7 +23,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     # Project Applications
-    'surveys',
+    'surveys.apps.SurveysConfig',
 ]
 
 MIDDLEWARE = [
@@ -36,6 +34,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -58,14 +57,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': os.getenv('DJANGO_DB_HOST'),
+        'PORT': os.getenv('DJANGO_DB_PORT'),
+        'NAME': os.getenv('DJANGO_DB_NAME'),
+        'USER': os.getenv('DJANGO_DB_USER'),
+        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD'),
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -82,6 +83,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Django REST Framework settings
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ]
+}
 
 LANGUAGE_CODE = 'ru'
 
@@ -91,7 +99,17 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
-
+USE_TZ = False
 
 STATIC_URL = '/static/'
+
+# Django debug toolbar
+if DEBUG:
+    INSTALLED_APPS += ['debug_toolbar', ]
+    MIDDLEWARE += [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+        'debug_toolbar_force.middleware.ForceDebugToolbarMiddleware',
+    ]
+    INTERNAL_IPS = [
+        '127.0.0.1',
+    ]
