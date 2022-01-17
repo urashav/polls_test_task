@@ -130,11 +130,69 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+## Запуск приложения в Docker (должен быть установлен)
+
+#### В приложении имеется Makefile с сокращенными командами:
+
+```makefile
+up:
+	docker-compose up
+down:
+	docker-compose down
+test:
+	docker-compose run web ./manage.py test
+makemigrations:
+	docker-compose run web ./manage.py makemigrations
+migrate:
+	docker-compose run web ./manage.py migrate
+createsuperuser:
+	docker-compose run web ./manage.py createsuperuser
+```
+
+#### Запуск команды
+```shell
+make <command>
+```
+
+
+### Соберите приложение:
+```shell
+docker-compose build
+```
+
+### Выполните команду миграций:
+
+```shell
+docker-compose run web ./manage.py migrate
+```
+
+### Запустите тесты:
+```shell
+docker-compose run web ./manage.py test
+```
+
+### Создание супер пользвателя
+
+```shell
+docker-compose run web ./manage.py createsuperuser
+```
+
+### Запустите сервер:
+
+```shell
+docker-compose up
+```
+
+### Остановить сервер (Ctrl+C):
+
+```shell
+docker-compose down
+```
+
 ### Панель администратора:
 ```djangourlpath
 /admin/
 ```
-
 
 ### Документация API SWAGGER
 ```djangourlpath
