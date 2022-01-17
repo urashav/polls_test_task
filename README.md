@@ -41,6 +41,12 @@ mkdir project_name && cd project_name
 git clone https://github.com/urashav/polls_test_task.git
 cd polls_test_task
 ```
+
+## Запуск приложения локально.
+
+Внимание! Для локального запуска требутся PostgreSQL
+
+
 Создайте виртуальное окружение:
 
 ```shell
@@ -57,11 +63,8 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### Запуск приложения локально.
 
-Внимание! Для локального запуска требутся PostgreSQL
-
-####Создайте пользователя без пароля:
+#### Создайте пользователя без пароля:
 ```shell
 createuser db_username
 ```
@@ -78,7 +81,7 @@ createdb db_name -Odb_username
 
 Для запуска тестов пользователь должен обладать правами на создание БД
 
-####Переопределите права пользователя:
+#### Переопределите права пользователя:
 
 Войдите в базу данных:
 ```shell
