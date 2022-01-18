@@ -95,6 +95,16 @@ class SurveysApiTestCase(APITestCase):
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(content_type, response['Content-Type'])
 
+    def test_num_queries_survey_retrieve(self):
+        url = reverse('survey-detail', args=(self.survey_1.id,))
+        with self.assertNumQueries(3):
+            self.client.get(url)
+
+    def test_num_queries_surveys_list(self):
+        url = reverse('survey-list')
+        with self.assertNumQueries(1):
+            self.client.get(url)
+
 
 class ResultApiTestCase(APITestCase):
     def setUp(self) -> None:
@@ -227,4 +237,10 @@ class ResultApiTestCase(APITestCase):
         url = reverse('result-list')
         response = self.client.get(url)
         self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
+
+    def test_num_queries_result(self):
+        url = reverse('result-list')
+        url_user_id = f"{url}?user_id=1"
+        with self.assertNumQueries(2):
+            self.client.get(url_user_id)
 
