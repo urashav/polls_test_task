@@ -1,12 +1,11 @@
-from django.db.models import Prefetch
-
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
 from rest_framework import viewsets, exceptions
 from rest_framework.mixins import CreateModelMixin, ListModelMixin
 
-from surveys.models import Survey, Answer
+from surveys.models import Survey
+from surveys.querysets import get_result_queryset
 from surveys.serializers import (
     SurveysSerializer,
     SurveysRetrieveSerializer,
@@ -62,11 +61,6 @@ class ResultViewSet(
         if not user_id:
             raise exceptions.ParseError('Требуется user_id')
 
-        queryset = Survey.objects.filter(
-            answers__user_id=user_id).distinct().prefetch_related(
-            Prefetch('answers',
-                     queryset=Answer.objects.filter(user_id=user_id)
-                     .select_related('question')
-                     .select_related('choice'))
-        )
+        queryset = get_result_queryset(int(user_id))
         return queryset
+
