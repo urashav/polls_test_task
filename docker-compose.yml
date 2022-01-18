@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   db:
-    image: postgres
+    image: postgres:14.1
     volumes:
       - ./data/db:/var/lib/postgresql/data
     environment:
@@ -12,7 +12,7 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python3.9 manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:
