@@ -85,6 +85,6 @@ class SurveysApiTestCase(TestCase):
         ).all()
         self.assertQuerysetEqual(
             queryset,
-            expected_queryset,
+            [repr(item) for item in expected_queryset],
             ordered=False,
         )

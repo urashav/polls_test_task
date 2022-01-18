@@ -28,12 +28,12 @@
 
 ### Requirements:
 - Django==2.2.10
-- djangorestframework==3.13.1
+- djangorestframework==3.11.0
 - psycopg2-binary==2.9.3
 - django-debug-toolbar==3.2.4
 - django-debug-toolbar-force==0.1.8
 - coverage==6.2
-
+- drf-yasg==1.17.1
 
 Склонируйте git репозиторий:
 ```shell
