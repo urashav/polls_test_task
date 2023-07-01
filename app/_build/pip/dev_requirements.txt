@@ -1,0 +1,4 @@
+-r base_requirements.txt
+django-debug-toolbar==3.2.4
+django-debug-toolbar-force==0.1.8
+coverage==6.2

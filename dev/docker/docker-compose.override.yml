@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  web:
+    depends_on:
+      - psql
+    ports:
+      - $SYSTEM__BACKEND_API__EXT_PORT:8000
+
+  psql:
+    image: postgres:14.1
+    shm_size: 1g
+    expose:
+      - 5432
+    volumes:
+      - "psql_data:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_USER: $DB__USER
+      POSTGRES_PASSWORD: $DB__PASSWORD
+      POSTGRES_DB: $DB__NAME
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $$DB__NAME" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  psql_data: {}

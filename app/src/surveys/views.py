@@ -63,4 +63,3 @@ class ResultViewSet(
 
         queryset = get_result_queryset(int(user_id))
         return queryset
-

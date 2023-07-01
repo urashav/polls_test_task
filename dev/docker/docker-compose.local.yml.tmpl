@@ -1,0 +1,7 @@
+version: '3.7'
+
+services:
+  psql:
+    ports:
+      - 5432:5432
+    command: ["postgres", "-c", "log_statement=all", "-c", "max_connections=10000", "-c", "shared_buffers=24MB"]

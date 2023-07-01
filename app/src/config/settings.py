@@ -3,9 +3,9 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+SECRET_KEY = os.getenv("SYSTEM__SECRET_KEY")
 
-DEBUG = os.getenv('DJANGO_DEBUG', False)
+DEBUG = os.getenv('SYSTEM__DEBUG', False)
 
 ALLOWED_HOSTS = ['*']
 
@@ -61,11 +61,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': os.getenv('DJANGO_DB_HOST'),
-        'PORT': os.getenv('DJANGO_DB_PORT'),
-        'NAME': os.getenv('DJANGO_DB_NAME'),
-        'USER': os.getenv('DJANGO_DB_USER'),
-        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD'),
+        'HOST': os.getenv('DB__HOST'),
+        'PORT': os.getenv('DB__PORT'),
+        'NAME': os.getenv('DB__NAME'),
+        'USER': os.getenv('DB__USER'),
+        'PASSWORD': os.getenv('DB__PASSWORD'),
     }
 }
 

@@ -1,0 +1,28 @@
+version: '3.7'
+
+x-web-env:
+  &web-env
+
+  SYSTEM__DEBUG: ${SYSTEM__DEBUG}
+  SYSTEM__SECRET_KEY: ${SYSTEM__SECRET_KEY}
+  
+  DB__NAME: ${DB__NAME}
+  DB__HOST: ${DB__HOST}
+  DB__PORT: ${DB__PORT} 
+  DB__USER: ${DB__USER}
+  DB__PASSWORD: ${DB__PASSWORD}
+
+x-web:
+  &web
+  build: 
+    context: ../../
+    dockerfile: dev/docker/Dockerfile
+  restart: on-failure
+  tty: true
+  volumes:
+    - "../../app/:/var/app"
+  environment:
+    <<: *web-env
+services:
+  web:
+   <<: *web
